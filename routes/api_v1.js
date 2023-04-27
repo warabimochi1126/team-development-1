@@ -48,6 +48,10 @@ router.post('/register', async function(req, res, next) {
         is_admin: 0
       };
       const userData = await Schema.create(registerObject);
+      //後で消す
+      //Schema.createはasync function->中でPromiseオブジェクトが実行されているのでawait句を使う事でresolve()が呼ばれるまで実行を停止している？
+      //Schema.createでresolve()が呼ばれているようには見えない,返ってきたreturnされた値がPromsiseオブジェクトでその中でresolve()が呼ばれている？
+      console.log(Schema.create + "");
       res.cookie('phone_number', req.body.phone_number, {maxAge: 60000, httpOnly: false });
       res.redirect('/top');
     }

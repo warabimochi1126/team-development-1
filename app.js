@@ -9,6 +9,7 @@ var usersRouter = require('./routes/users');
 const api_v1Router = require('./routes/api_v1');
 const registerRouter = require('./routes/register');
 const loginRouter = require('./routes/login')
+const topRouter = require('./routes/top');
 
 var app = express();
 
@@ -20,6 +21,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+//静的ファイルのルーティングはpublicディレクトリが親ディレクトリであるという設定
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
@@ -27,6 +29,7 @@ app.use('/users', usersRouter);
 app.use('/api/v1', api_v1Router);
 app.use('/register', registerRouter);
 app.use('/login', loginRouter);
+app.use('/top', topRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,0 +1,287 @@
+
+ /* ページ全体を覆うコンテナ */
+
+ body{
+    margin:0px;
+ }
+
+ .container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  /* 上部のフロート要素 */
+  .top-float {
+    height: 10em;
+    text-align: center;
+    background-color: #ffffff;
+	z-index: 999;
+  }
+
+
+  /* 下部のフロート要素 */
+  .bottom-float {
+    height: 6em;
+    background-color: #ffffff;
+	border-top: solid 3px #ccc;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  /* スクロール可能なコンテンツエリア */
+  .scrollable-content {
+	padding-top: 50px;
+    flex: 1;
+    overflow-y: auto;
+  }
+  
+  /* ボタン */
+  .button {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #2300ec;	
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .button:hover{
+	background-color: rgb(108, 110, 227);
+	color:#ffffff;
+  }
+  
+  /* 丸いボタン */
+  .circle-button {
+    border-radius: 50%;
+    width: 30px;
+    height: 50px;
+  }
+
+
+  /*========= 投稿文のためのCSS ===============*/
+
+  .posts{
+	display: flex;
+	padding: 1.3em;
+	margin: 0 auto;
+	justify-content: center;
+	border-bottom: solid 3px #ccc;
+  }
+
+  .headline{
+	display: flex;
+	justify-content: space-between;
+  }
+
+  .contents{
+	padding-left: 2em;
+  }
+
+ .icon {
+	box-sizing: border-box;
+    padding: 10px 10px;
+    color: #ffffff;
+    text-decoration: none;
+    overflow: hidden;
+	font-size: 40px;
+    /* 形状の指定 */
+	background-color: #9b0000;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+}
+
+.full-name{
+	display: flex;
+	font-size: large;
+	font-weight: bold;
+	justify-content: space-between;
+}
+
+.last-name{
+	padding-right: 0.5em;
+}
+
+.last-name, .name{
+	width: 2em;
+}
+
+.department{
+	font-size: large;
+	color: #999;
+}
+
+.time {
+	width: 6em;
+	font-size: small;
+	color: #999;
+	padding: 0.3em 0 0 6em;
+}
+
+.statuses {
+	display: flex;
+	margin:0.5em;
+}
+
+.statuses div {
+	border: solid 2px #999;
+	border-radius: 15px;
+	width: 10em;
+	padding: 10px;
+}
+
+.status1,.status2,.status3{
+	margin: 0 0.7em;
+}
+
+
+
+  /*========= ナビゲーションドロップダウンのためのCSS ===============*/
+
+/*==ナビゲーション全体の設定*/
+nav{
+	background:#fff;
+	color:#333;
+	border-bottom: solid 3px #ccc;
+	text-align: center;
+}
+/*ナビゲーションを横並びに*/
+nav ul{
+	list-style: none;
+	display: flex;
+	justify-content: center;
+	padding: 0;		/*	変更点　*/
+}
+/*2階層目以降は横並びにしない*/
+nav ul ul{
+	display: block;
+}
+
+/*下の階層のulや矢印の基点にするためliにrelativeを指定*/
+nav ul li{
+	position: relative;
+}
+
+/*ナビゲーションのリンク設定*/
+nav ul li a{
+	display: block;
+	text-decoration: none;
+	color: #999;
+	padding:20px 35px;
+	transition:all .3s;
+}
+
+nav ul li li a{
+	padding:10px 35px;
+}
+
+/* hoverされた時の設定 */
+nav ul li a:hover{
+	color:#2300ec;	
+}
+
+/*==矢印の設定*/
+
+/*2階層目を持つliの矢印の設定*/
+nav ul li.has-child::before{
+	content:'';
+	position: absolute;
+	left:15px;
+	top:25px;
+	width:6px;
+	height:6px;
+	border-top: 2px solid #999;
+    border-right:2px solid #999;
+    transform: rotate(135deg);
+}
+
+/*== 2・3階層目の共通設定 */
+
+/*下の階層を持っているulの指定*/
+nav li.has-child ul{
+    /*絶対配置で位置を指定*/
+	position: absolute;
+	left:0;
+	top:62px;
+	z-index: 4;
+	padding-left: 0;	/*  変更点 */
+    /*形状を指定*/
+	background:#ffffff; /* 変更点 */
+	width: 180px;
+    /*はじめは非表示*/
+	visibility: hidden;
+	opacity: 0;
+    /*アニメーション設定*/
+	transition: all .3s;
+}
+
+/*hoverしたら表示*/
+nav li.has-child:hover > ul,
+nav li.has-child ul li:hover > ul,
+nav li.has-child:active > ul,
+nav li.has-child ul li:active > ul{
+  visibility: visible;
+  opacity: 1;
+}
+
+/*ナビゲーションaタグの形状*/
+nav li.has-child ul li a{
+	color: #333;   /*　変更点　*/
+	border-bottom:solid 2px rgba(195, 195, 195, 0.6);		/*　変更点　*/
+}
+
+nav li.has-child ul li:last-child a{
+	border-bottom:none;
+}
+
+nav li.has-child ul li a:hover,
+nav li.has-child ul li a:active{
+	background:#ccc;
+}
+
+
+/*==768px以下の形状*/
+
+@media screen and (max-width:768px){
+	nav{
+		padding: 0;
+	}
+	
+	nav ul{
+		display: block;
+	}
+	
+	nav li.has-child ul,
+	nav li.has-child ul ul{
+  	position: relative;
+	left:0;
+	top:0;
+	width:100%;
+	visibility:visible;/*JSで制御するため一旦表示*/
+	opacity:1;/*JSで制御するため一旦表示*/
+	display: none;/*JSのslidetoggleで表示させるため非表示に*/
+	transition:none;/*JSで制御するためCSSのアニメーションを切る*/
+}
+	
+nav ul li a{
+	border-bottom:1px solid #ccc;
+}
+
+/*矢印の位置と向き*/
+
+nav ul li.has-child::before{
+	left:20px;	
+}
+
+nav ul ul li.has-child::before{
+    transform: rotate(135deg);
+	left:20px;
+}
+    
+nav ul li.has-child.active::before{
+    transform: rotate(-45deg);
+}
+
+}
