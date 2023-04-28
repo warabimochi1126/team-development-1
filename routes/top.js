@@ -25,7 +25,7 @@ mongoose.connect(process.env.databaseKey)
 router.get('/', async function(req, res, next) {
   //SELECT name, department, state_left, state_mid, state_right FROM users;
   const getData = await Schema.find({},{name: 1, department: 1, state_left: 1, state_left: 1, state_mid: 1, state_right: 1}).lean();
-  fs.writeFileSync(logPath, getData.toString());
+  fs.writeFileSync(logPath, JSON.stringify(getData));
   //SELECT name FROM users WHERE phone_number = req.cookies.phone_number
   const loginUserData = await Schema.findOne({phone_number: req.cookies.phone_number}, {name: 1}).lean();
   const loginUserName = loginUserData.name.slice(0, 1);
