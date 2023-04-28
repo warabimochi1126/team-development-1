@@ -15,10 +15,10 @@ Object.prototype.getName = function() {
 //DB接続
 mongoose.connect(process.env.databaseKey)
 .then(() => {
-  console.log("データベース接続完了");
+  console.log("データベース接続完了 api");
 })
 .catch((err) => {
-  console.log(`データベース接続エラー     ${err}`);
+  console.log(`データベース接続エラー api     ${err}`);
 });
 
 //アカウント登録処理
@@ -28,10 +28,10 @@ router.post('/register', async function(req, res, next) {
   try {
     const record = await Schema.find({ phone_number: req.body.phone_number});
     if (record.length === 1) {
-      console.log("登録時にレコードが存在していたので弾く");
+      console.info("登録時にレコードが存在していたので弾く");
       res.redirect('/register');
     } else {
-      console.log("レコードが存在していないので登録する");
+      console.info("レコードが存在していないので登録する");
       console.log(req.body);
       console.log(`req.body.phone_number:${req.body.phone_number}`);
       console.log(`req.body.L-name:${req.body.L_name}`);
@@ -56,7 +56,7 @@ router.post('/register', async function(req, res, next) {
       res.redirect('/top');
     }
   } catch (err) {
-    console.log(`データベース登録エラー   ${err}`);
+    console.info(`データベース登録エラー   ${err}`);
     res.redirect('/register');
   }
 });
@@ -74,21 +74,21 @@ router.post('/login', async function(req, res, next) {
     console.log(record.length);
     if(record.length === 1) {
       if(req.body.phone_number === record[0].phone_number && req.body.password === record[0].password) {
-        console.log("ログイン処理成功");
+        console.info("ログイン処理成功");
         console.log(req.body);
-        // res.cookie('phone_number', req.body.phone_number, {maxAge: 60000, httpOnly: false });
+        res.cookie('phone_number', req.body.phone_number, {maxAge: 6000000, httpOnly: false });
         res.redirect('/top');
       } else {
-        console.log("elseに入った");
+        console.info("elseに入った");
         console.log("ログイン処理失敗");
         res.redirect("/register");
       }
     } else {
-      console.log("電話番号でレコードを取ってこれなかった");
+      console.info("電話番号でレコードを取ってこれなかった");
       res.redirect("/register");
     }
   } catch(err) {
-    console.log(`データベース取得エラー   ${err}`);
+    console.info(`データベース取得エラー   ${err}`);
   }
 });
 

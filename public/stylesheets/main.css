@@ -11,7 +11,8 @@
     height: 100vh;
   }
   
-  /* 上部のフロート要素 */
+   /*================ ヘッダー ===============*/
+
   .top-float {
     height: 10em;
     text-align: center;
@@ -20,21 +21,95 @@
   }
 
 
-  /* 下部のフロート要素 */
+/* 状況確認タブ */
+  #status-check,.situations{
+	display: flex;
+	justify-content: space-evenly;
+  }
+
+  .situations{
+	font-size: 1.3em;
+	padding: 10px 0 10px 0;
+  }
+
+  .safe,.danger,.uncertain{
+	display: flex;
+  }
+
+  .num{
+	display: flex;
+	padding-left: 1.7em;
+	font-size: 25px;
+  }
+
+  #safe-icon,#danger-icon,#uncertain-icon{
+	box-sizing: border-box;
+    padding: 5px 5px;
+    /* 形状の指定 */
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+  }
+
+  /* 安全 */
+  #safe-icon{
+	background-color: #6EAA00;  
+  }
+
+  #safe-txt,#anzen{
+	color:#6EAA00;
+  }
+
+  #anzen{
+	padding-right: 1em;
+  }
+
+  #safe{
+	padding-right: 0.5em;
+  }
+
+  #whole{
+	padding-left: 0.5em;
+  }
+
+  /* 危険 */
+  #danger-icon{
+	background-color: #D60015; 
+  }
+
+  #dan-txt,#kinnkyuu{
+	color: #D60015;
+  }
+  
+  /* 未確認 */
+  #uncertain-icon{
+	 background-color: #C5C5C5
+  }
+
+  #unc-txt,#mikakunin{
+	color: #C5C5C5;
+  }
+
+
+
+    /* スクロール可能なコンテンツエリア */
+	.scrollable-content {
+		padding-top: 50px;
+		flex: 1;
+		overflow-y: auto;
+	  }
+	  
+
+
+  /*========= フッター ===============*/
+
   .bottom-float {
     height: 6em;
     background-color: #ffffff;
-	border-top: solid 3px #ccc;
+	border-top: solid 3px #A1A1A1;
     display: flex;
     justify-content: space-around;
     align-items: center;
-  }
-  
-  /* スクロール可能なコンテンツエリア */
-  .scrollable-content {
-	padding-top: 50px;
-    flex: 1;
-    overflow-y: auto;
   }
   
   /* ボタン */
@@ -42,57 +117,99 @@
     display: inline-block;
     padding: 10px 20px;
     border-radius: 5px;
-    background-color: #2300ec;	
-    color: #fff;
     text-decoration: none;
   }
 
-  .button:hover{
-	background-color: rgb(108, 110, 227);
-	color:#ffffff;
-  }
-  
   /* 丸いボタン */
-  .circle-button {
+  #eyecon {
+	overflow: hidden;
+	font-size: 40px;
+	background-color: #D60015;
+	color: #ffffff;
     border-radius: 50%;
     width: 30px;
     height: 50px;
   }
 
+  /* 四角いボタン */
+  .square-button{
+	display: flex;
+	justify-content: space-between;
+
+  }
+
+  /* 編集ボタン */
+  #edit-personal{
+	background-color: #ffffff;	
+    color: #A1A1A1;
+	border: solid 3px #A1A1A1;
+	font-size: 1.5em;
+	margin-right: 3em;
+	padding:  15px 30px;
+  }
+
+  #edit-personal:hover{
+	background-color: #A1A1A1;
+	color:#ffffff;
+  }
+  
+  /* ログアウトボタン */
+  #logout{
+	background-color: #0600CB;	
+    color: #fff;
+	font-weight: bold;
+	font-size: 1.5em;
+	padding:  15px 30px;
+  }
+
+  #logout:hover{
+	background-color: rgb(108, 110, 227);
+	color:#ffffff;
+  }
+
+
+
 
   /*========= 投稿文のためのCSS ===============*/
 
+  /* 投稿文全体 */
   .posts{
 	display: flex;
 	padding: 1.3em;
+	padding-top: 2em;
 	margin: 0 auto;
 	justify-content: center;
-	border-bottom: solid 3px #ccc;
+	border-bottom: solid 3px #A1A1A1;
   }
 
+  /* 見出し全体 */
   .headline{
 	display: flex;
 	justify-content: space-between;
   }
 
+  /* アイコン以外 */
   .contents{
 	padding-left: 2em;
   }
 
+  /* アイコン */
  .icon {
 	box-sizing: border-box;
     padding: 10px 10px;
     color: #ffffff;
     text-decoration: none;
     overflow: hidden;
+	text-align: center;
 	font-size: 40px;
     /* 形状の指定 */
-	background-color: #9b0000;
+	background-color: #D60015;
     border-radius: 50%;
     width: 70px;
     height: 70px;
 }
 
+/* 名前 */
 .full-name{
 	display: flex;
 	font-size: large;
@@ -100,6 +217,7 @@
 	justify-content: space-between;
 }
 
+/* 名字 */
 .last-name{
 	padding-right: 0.5em;
 }
@@ -108,11 +226,13 @@
 	width: 2em;
 }
 
+/* 部署名 */
 .department{
 	font-size: large;
 	color: #999;
 }
 
+/* 時刻表記 */
 .time {
 	width: 6em;
 	font-size: small;
@@ -120,31 +240,35 @@
 	padding: 0.3em 0 0 6em;
 }
 
+/* 状況全体 */
 .statuses {
 	display: flex;
 	margin:0.5em;
 }
 
 .statuses div {
-	border: solid 2px #999;
+	border: solid 2px #A1A1A1;
 	border-radius: 15px;
 	width: 10em;
 	padding: 10px;
 }
 
 .status1,.status2,.status3{
+	text-align: center;
 	margin: 0 0.7em;
+	/* #D0BD4F　注意色*/
 }
 
 
 
   /*========= ナビゲーションドロップダウンのためのCSS ===============*/
 
+
 /*==ナビゲーション全体の設定*/
 nav{
 	background:#fff;
 	color:#333;
-	border-bottom: solid 3px #ccc;
+	border-bottom: solid 3px #A1A1A1;
 	text-align: center;
 }
 /*ナビゲーションを横並びに*/
@@ -153,6 +277,7 @@ nav ul{
 	display: flex;
 	justify-content: center;
 	padding: 0;		/*	変更点　*/
+	margin-top: 0;
 }
 /*2階層目以降は横並びにしない*/
 nav ul ul{
@@ -168,9 +293,10 @@ nav ul li{
 nav ul li a{
 	display: block;
 	text-decoration: none;
-	color: #999;
-	padding:20px 35px;
+	color: #A1A1A1;
+	padding:10px 17px;
 	transition:all .3s;
+	font-size: 1.2em;
 }
 
 nav ul li li a{
@@ -179,7 +305,7 @@ nav ul li li a{
 
 /* hoverされた時の設定 */
 nav ul li a:hover{
-	color:#2300ec;	
+	color:#0600CB;	
 }
 
 /*==矢印の設定*/
@@ -188,12 +314,12 @@ nav ul li a:hover{
 nav ul li.has-child::before{
 	content:'';
 	position: absolute;
-	left:15px;
-	top:25px;
+	left:95px;
+	top:17px;
 	width:6px;
 	height:6px;
-	border-top: 2px solid #999;
-    border-right:2px solid #999;
+	border-top: 2px solid #A1A1A1;
+    border-right:2px solid #A1A1A1;
     transform: rotate(135deg);
 }
 
@@ -229,7 +355,7 @@ nav li.has-child ul li:active > ul{
 /*ナビゲーションaタグの形状*/
 nav li.has-child ul li a{
 	color: #333;   /*　変更点　*/
-	border-bottom:solid 2px rgba(195, 195, 195, 0.6);		/*　変更点　*/
+	border-bottom:solid 2px rgb(161,161,161);		/*　変更点　*/
 }
 
 nav li.has-child ul li:last-child a{
@@ -264,10 +390,7 @@ nav li.has-child ul li a:active{
 	display: none;/*JSのslidetoggleで表示させるため非表示に*/
 	transition:none;/*JSで制御するためCSSのアニメーションを切る*/
 }
-	
-nav ul li a{
-	border-bottom:1px solid #ccc;
-}
+
 
 /*矢印の位置と向き*/
 

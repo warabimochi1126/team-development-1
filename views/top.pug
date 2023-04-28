@@ -10,67 +10,97 @@ html(lang="ja")
     .container
       // ヘッダー
       header.top-float
-        h1 現在の安否状況
+        h2 現在の安否状況
+        // 内訳
         #status-check
-          h3 何人が無事
-            // プルダウンメニュー
-            nav#category-tab
+          // 安全
+          .safe
+            #safe-icon
+            #safe-txt.num
+              #safe 0
+              | /
+              #whole 0
+          // 安全終了
+          // 危険
+          .danger
+            #danger-icon
+            #dan-txt.num 0
+          // 危険終了
+          // 不明
+          .uncertain
+            #uncertain-icon
+            #unc-txt.num 0
+          // 不明終了
+        // 内訳終了
+        // 状況文字
+        .situations
+          #anzen 安全
+          #kinnkyuu 緊急
+          #mikakunin 未確認
+        // 状況文字終了
+        // プルダウンメニュー
+        nav#category-tab
+          ul
+            // has-childの本文は選択されたものにする、多分javascript
+            li.has-child
+              a(href="#") 全社員
               ul
-                // has-childの本文は選択されたものにする、多分javascript
-                li.has-child
+                li#category1.child
+                  a(href="#") 部署1
+                li#category2.child
+                  a(href="#") 部署2
+                li#category3.child
+                  a(href="#") 部署3
+                li#emergency.child
+                  a(href="#") 緊急
+                li#allemployee.child
                   a(href="#") 全社員
-                  ul
-                    li#category1.child
-                      a(href="#") 部署1
-                    li#category2.child
-                      a(href="#") 部署2
-                    li#category3.child
-                      a(href="#") 部署3
-                    li#emergency.child
-                      a(href="#") 緊急
-                    li#allemployee.child
-                      a(href="#") 全社員
-            // プルダウンメニュー終了
-            // ヘッダー終了
-            // ここにスクロール可能なコンテンツを記述
-            .scrollable-content
-              // 一投稿分
-              .posts
-                // アイコン
-                .icon  名前の一文字目を入れる 
-                // アイコン終了
-                // 内容
-                .contents
-                  // 見出し部分
-                  .headline
-                    // フルネーム
-                    .full-name
-                      .last-name 名字
-                      .name 名前
-                    // フルネーム終了
-                    .department 部署名
-                    .time 現在時刻
-                  // ステータス
-                  .statuses
-                    .status1 健康状態を入れる
-                    .status2 周辺状況を入れる
-                    .status3 予定を入れる
-                  // ステータス終了
-                // 見出し部分終了
-                // 内容終了
-              // 一投稿分終了
-            // スクロール終了
-            // ボタン
-            .bottom-float
-              // 名前の一文字目
-              a#eyecon.button.circle-button(href="#") 名前
-              // 四角いボタン
-              .square-button
-                a#edit-personal.button(href="/edit") 編集
-                a#logout.button(href="/login") ログアウト
-              // 四角いボタン終了
-            // ボタン終了
-            // jquery
-            script(src="https://code.jquery.com/jquery-3.4.1.min.js", integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=", crossorigin="anonymous")
-            // 自作JS
-            script(src="./js/main.js")
+        // プルダウンメニュー終了
+      // ヘッダー終了
+      // ここにスクロール可能なコンテンツを記述
+      .scrollable-content
+        // 一投稿分
+        each record in data 
+          .posts
+            // アイコン
+            .icon
+              | #{record.iconName}
+            // アイコン終了
+            // 内容
+            .contents
+              // 見出し部分
+              .headline
+                // フルネーム
+                .full-name
+                  .last-name #{record.names[0]}
+                  .name #{record.names[1]}
+                // フルネーム終了
+                .department #{record.department}
+                .time 現在時刻
+              // ステータス
+              .statuses
+                .status1 健康状態を入れる
+                .status2 周辺状況を入れる
+                .status3 予定を入れる
+              // ステータス終了
+            // 見出し部分終了
+            // 内容終了
+          // 一投稿分終了
+        // スクロール終了
+        // ボタン
+      .bottom-float
+        // 名前の一文字目
+        a#eyecon.button.circle-button(href="#") #{loginUserName}
+        // 四角いボタン
+        .square-button
+          a#edit-personal.button(href="/edit") 編集
+          a#logout.button(href="/login") ログアウト
+        // 四角いボタン終了
+      // ボタン終了
+    // jquery
+    script(src="https://code.jquery.com/jquery-3.4.1.min.js", integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=", crossorigin="anonymous")
+    // 自作JS
+    script(src="./js/main.js")
+    //
+      bootstrap
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
