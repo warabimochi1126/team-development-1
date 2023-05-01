@@ -37,6 +37,15 @@ router.get('/', async function(req, res, next) {
   for(let i = 0; i < getData.length; i++) {
     getData[i].names = getData[i].name.split(' ');
     getData[i].iconName = getData[i].names[0].slice(0, 1);
+    if(Number(getData[i].department) === 1) {
+      getData[i].department = '営業部';
+    } else if (Number(getData[i].department) === 2) {
+      getData[i].department = '企画部';
+    } else if (Number(getData[i].department) === 3) {
+      getData[i].department = '開発部';
+    } else {
+      getData[i].department = '認められない値が入力された場合';
+    }
   }
   console.log(getData[0]);            //取得したobjectの一例
   console.log(getData[0].getName());
