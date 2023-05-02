@@ -21,21 +21,18 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   state_left: {
-    type: Number
+    type: String
   },
-  stete_mid: {
-    type: Number
+  state_mid: {
+    type: String
   },
   state_right: {
-    type: Number
-  },
-  updated_at: {
     type: Number
   },
   is_admin: {
     type: Boolean,
     required: true
   }
-});
+}, {timestamps: true});
 
 module.exports = mongoose.model('User', userSchema);

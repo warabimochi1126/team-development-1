@@ -76,7 +76,7 @@ router.post('/login', async function(req, res, next) {
       if(req.body.phone_number === record[0].phone_number && req.body.password === record[0].password) {
         console.info("ログイン処理成功");
         console.log(req.body);
-        res.cookie('phone_number', req.body.phone_number, {maxAge: 6000000, httpOnly: false });
+        res.cookie('phone_number', req.body.phone_number, {maxAge: 60000000, httpOnly: false });
         res.redirect('/top');
       } else {
         console.info("elseに入った");
@@ -92,4 +92,38 @@ router.post('/login', async function(req, res, next) {
   }
 });
 
+//状態変更処理
+router.post('/update', async function(req, res, next) {
+  //axios.postで送られてきた値
+  console.log(req.body);
+  console.log(req.cookies.phone_number);
+  try {
+    //state_leftを代用してカラーコードの状態を保持しています
+    const updateData = await Schema.updateOne({phone_number: req.cookies.phone_number}, {state_left: req.body.currentColorCode});
+    console.log(`102:  ${updateData}`);
+  } catch (err) {
+    console.info(`データベース更新エラー  ${err}`)
+  }
+  res.redirect("/top");
+});
+
+//投稿処理
+router.post('/posting', async function(req, res, next) {
+  //textareaに入力された内容をDBに保存(state_midを代用)
+  //①postreqで送られた値を取得
+  //②cookieに乗っているphone_numberを使ってstate_midに代入
+  //③pugにDBのstate_midを引き渡して表示
+
+  //axios.postで送られてきた値
+  console.log("content" + req.body.content);
+  console.log(req.cookies.phone_number);
+  try {
+    //state_midを代用して本文の内容を保持しています
+    const updateContent = await Schema.updateOne({phone_number: req.cookies.phone_number}, {state_mid: req.body.content});
+    console.log(`129:  ${JSON.stringify(updateContent)}`);
+    res.redirect()
+  } catch(err) {
+    console.log("データベース更新エラー  " + err);
+  }
+});
 module.exports = router;

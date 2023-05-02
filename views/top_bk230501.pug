@@ -17,19 +17,19 @@ html(lang="ja")
           .safe
             #safe-icon
             #safe-txt.num
-              #safe #{safeUser}
+              #safe 0
               | /
-              #whole #{wholeUser}
+              #whole 0
           // 安全終了
           // 危険
           .danger
             #danger-icon
-            #dan-txt.num #{dangerUser}
+            #dan-txt.num 0
           // 危険終了
           // 不明
           .uncertain
             #uncertain-icon
-            #unc-txt.num #{unconfirmedUser}
+            #unc-txt.num 0
           // 不明終了
         // 内訳終了
         // 状況文字
@@ -54,24 +54,17 @@ html(lang="ja")
                 li#emergency.child
                   a(href="#") 緊急
                 li#allemployee.child
-                  a(href="/top") 全社員
+                  a(href="#") 全社員
         // プルダウンメニュー終了
       // ヘッダー終了
       // ここにスクロール可能なコンテンツを記述
       .scrollable-content
         // 一投稿分
-        each record in data
+        each record in data 
           .posts
             // アイコン
-            if record.state_left == 'rgb(110, 170, 0)'
-              .icon(style="background-color: #6eaa00;")
-                | #{record.iconName}
-            else if record.state_left == 'rgb(214, 0, 21)'
-              .icon(style="background-color: #d60015;")
-                | #{record.iconName}
-            else
-              .icon(style="background-color: #C5C5C5;")
-                | #{record.iconName}
+            .icon
+              | #{record.iconName}
             // アイコン終了
             // 内容
             .contents
@@ -83,40 +76,31 @@ html(lang="ja")
                   .name #{record.names[1]}
                 // フルネーム終了
                 .department #{record.department}
-                .time #{record.timeDiffPug}
-              // コメント
-              .comments
-                // ここにコメントを表示
-                if record.state_mid == undefined
-                  p 設定されていません
-                else 
-                  p #{record.state_mid}
+                .time 現在時刻
+              // ステータス
+              .statuses
+                .status1 健康状態を入れる
+                .status2 周辺状況を入れる
+                .status3 予定を入れる
               // ステータス終了
             // 見出し部分終了
             // 内容終了
           // 一投稿分終了
         // スクロール終了
-      // フッター
+        // ボタン
       .bottom-float
         // 名前の一文字目
-        if loginUserState == 'rgb(110, 170, 0)'
-          a#eyecon.button.circle-button(href="#" style="background-color: #6eaa00;") #{loginUserName}
-        else if loginUserState == 'rgb(214, 0, 21)'
-          a#eyecon.button.circle-button(href="#", style="background-color: #d60015;") #{loginUserName}
-        else 
-          a#eyecon.button.circle-button(href="#", style="background-color: #6eaa00;") #{loginUserName}
-        // テキストボックス
-        form(action="api/v1/posting", method="post" name="textForm")
-          textarea(name="comments", placeholder="健康状態・周辺状況・これからどうするか、等", maxlength="140", cols="60", rows="3")
-          a#upload.button(href="#") 送信
-        // テキストボックス終了
+        a#eyecon.button.circle-button(href="#") #{loginUserName}
         // 四角いボタン
         .square-button
+          a#edit-personal.button(href="/edit") 編集
           a#logout.button(href="/login") ログアウト
         // 四角いボタン終了
-      // フッター終了
+      // ボタン終了
     // jquery
     script(src="https://code.jquery.com/jquery-3.4.1.min.js", integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=", crossorigin="anonymous")
-    script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
     // 自作JS
-    script(src="/javascripts/main.js")
+    script(src="./js/main.js")
+    //
+      bootstrap
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"></script>
