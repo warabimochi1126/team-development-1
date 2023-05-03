@@ -68,6 +68,10 @@ router.get('/:department?', async function(req, res, next) {
       console.log(val.department);
       return val.department === '開発部';
     });
+  } else if (Number(req.params.department) === 4) {
+    pugData = getData.filter((val) => {
+      return val.state_left === 'rgb(214, 0, 21)';
+    });
   } else {
     pugData = getData;
   }
@@ -118,7 +122,11 @@ router.get('/:department?', async function(req, res, next) {
   console.log(getData.getName());
   console.log("getdata.length:" + getData.length);
   console.log(pugData[0]);
-  res.render('top', {data: pugData, loginUserName, loginUserState, safeUser, dangerUser, unconfirmedUser, wholeUser});
+  
+  console.log("-----req.url-----");
+  const reqUrl = req.url;
+  console.log(req.url);
+  res.render('top', {data: pugData, loginUserName, loginUserState, safeUser, dangerUser, unconfirmedUser, wholeUser, reqUrl});
 });
 
 module.exports = router;

@@ -38,7 +38,7 @@ $(window).resize(function() {
     return window.getComputedStyle(icon, null).getPropertyValue('background-color');
   }
 
-  eyecon.addEventListener('click', async function() {
+  eyecon.addEventListener('mousedown', async function() {
     let currentBgColor = getBgColor();
     const green = 'rgb(110, 170, 0)';
     const red = "rgb(214, 0, 21)";
@@ -100,6 +100,6 @@ $(window).resize(function() {
         content: document.textForm.comments.value
       });
     } catch (err) {
-      console.log("content送信時によるpostreqエラー  " + err);
+      console.log("content送信時によるpostreqエラー  " + err.response.data);
     }
   });

@@ -148,6 +148,7 @@
   #upload:hover{
 	background-color: #A1A1A1;
 	color:#ffffff;
+	cursor: pointer
   }
 
   form {
@@ -425,4 +426,10 @@ nav ul li.has-child.active::before{
     transform: rotate(-45deg);
 }
 
+}
+
+/*aタグ削除によりホバー時のカーソル変更を修正*/
+/*#upload:hoverは頂いたcssセレクタの部分に書いています*/
+#eyecon:hover {
+	cursor: pointer;
 }

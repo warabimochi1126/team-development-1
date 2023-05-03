@@ -43,7 +43,16 @@ html(lang="ja")
           ul
             // has-childの本文は選択されたものにする、多分javascript
             li.has-child
-              a(href="#") 全社員
+              if reqUrl == '/1'
+                a(href="#") 営業部
+              else if reqUrl == '/2'
+                a(href="#") 企画部
+              else if reqUrl == '/3'
+                a(href="#") 開発部
+              else if reqUrl == '/4'
+                a(href="#") 緊急
+              else 
+                a(href="#") 全社員
               ul
                 li#category1.child
                   a(href="/top/1") 1:営業部
@@ -52,7 +61,7 @@ html(lang="ja")
                 li#category3.child
                   a(href="/top/3") 3:開発部
                 li#emergency.child
-                  a(href="#") 緊急
+                  a(href="/top/4") 緊急
                 li#allemployee.child
                   a(href="/top") 全社員
         // プルダウンメニュー終了
@@ -100,15 +109,15 @@ html(lang="ja")
       .bottom-float
         // 名前の一文字目
         if loginUserState == 'rgb(110, 170, 0)'
-          a#eyecon.button.circle-button(href="#" style="background-color: #6eaa00;") #{loginUserName}
+          a#eyecon.button.circle-button(href="/api/v1/redirectTop" style="background-color: #6eaa00;") #{loginUserName}
         else if loginUserState == 'rgb(214, 0, 21)'
-          a#eyecon.button.circle-button(href="#", style="background-color: #d60015;") #{loginUserName}
+          a#eyecon.button.circle-button(href="/api/v1/redirectTop" style="background-color: #d60015;") #{loginUserName}
         else 
-          a#eyecon.button.circle-button(href="#", style="background-color: #6eaa00;") #{loginUserName}
+          a#eyecon.button.circle-button(href="/api/v1/redirectTop" style="background-color: #6eaa00;") #{loginUserName}
         // テキストボックス
         form(action="api/v1/posting", method="post" name="textForm")
           textarea(name="comments", placeholder="健康状態・周辺状況・これからどうするか、等", maxlength="140", cols="60", rows="3")
-          a#upload.button(href="#") 送信
+          a#upload.button(href="/api/v1/redirectTop") 送信
         // テキストボックス終了
         // 四角いボタン
         .square-button

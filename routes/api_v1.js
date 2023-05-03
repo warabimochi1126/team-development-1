@@ -101,12 +101,18 @@ router.post('/update', async function(req, res, next) {
     //state_leftを代用してカラーコードの状態を保持しています
     const updateData = await Schema.updateOne({phone_number: req.cookies.phone_number}, {state_left: req.body.currentColorCode});
     console.log(`102:  ${updateData}`);
+    //axios.postで送信された後にredirectしない
+    res.redirect("/login");
   } catch (err) {
     console.info(`データベース更新エラー  ${err}`)
   }
-  res.redirect("/top");
 });
 
+//redirect処理
+router.get('/redirectTop', function(req, res, next) { 
+
+  res.redirect("/top");
+});
 //投稿処理
 router.post('/posting', async function(req, res, next) {
   //textareaに入力された内容をDBに保存(state_midを代用)
