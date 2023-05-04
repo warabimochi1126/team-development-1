@@ -108,10 +108,19 @@ router.post('/update', async function(req, res, next) {
   }
 });
 
-//redirect処理
+//redirect用
 router.get('/redirectTop', function(req, res, next) { 
-
+  //必要があれば動的にredirect先を設定する
   res.redirect("/top");
+});
+
+//アイコンの状態とコメントの内容をJSONで返すAPI
+//①state_left, state_midの最新状態をJSONで返却
+//②クライアント側でJSONを受け取って指定内容に書き換え
+router.get('/reload', async function(req, res, next) {
+  const topData = await Schema.find({}, {state_left: 1, state_mid: 1, department: 1});
+  console.log(topData);
+  res.json(topData);
 });
 //投稿処理
 router.post('/posting', async function(req, res, next) {
@@ -127,7 +136,6 @@ router.post('/posting', async function(req, res, next) {
     //state_midを代用して本文の内容を保持しています
     const updateContent = await Schema.updateOne({phone_number: req.cookies.phone_number}, {state_mid: req.body.content});
     console.log(`129:  ${JSON.stringify(updateContent)}`);
-    res.redirect()
   } catch(err) {
     console.log("データベース更新エラー  " + err);
   }
