@@ -14,7 +14,7 @@ Object.prototype.getName = function() {
   return (results && results.length > 1) ? results[1] : "";
 };
 
-mongoose.connect('mongodb+srv://warabimochi:koudai1126@cluster0.ajfzrdw.mongodb.net/?retryWrites=true&w=majority')
+mongoose.connect(process.env.databaseKey)
 .then(() => {
   console.log("データベース接続完了 top");
 })

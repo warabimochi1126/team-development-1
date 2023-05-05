@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 const Schema = require('../models/Schema');
 const mongoose = require('mongoose');
-// const dotenv = require('dotenv');
-// dotenv.config();
+const dotenv = require('dotenv');
+dotenv.config();
 
 //Object.getName()->typeofよりも詳細な型取得
 Object.prototype.getName = function() { 
@@ -13,7 +13,7 @@ Object.prototype.getName = function() {
 };
 
 //DB接続
-mongoose.connect('mongodb+srv://warabimochi:koudai1126@cluster0.ajfzrdw.mongodb.net/?retryWrites=true&w=majority')
+mongoose.connect(process.env.databaseKey)
 .then(() => {
   console.log("データベース接続完了 api");
 })
