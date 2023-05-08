@@ -123,7 +123,7 @@ $(window).resize(function() {
       console.log(`reloadevent err  ${err}`);
     }
   }
-  setInterval(autoReload, 5000);
+  setInterval(autoReload, 1000);
 
   eyecon.addEventListener('mousedown', async function() {
     let currentBgColor = getBgColor();

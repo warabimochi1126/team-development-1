@@ -23,11 +23,21 @@ mongoose.connect(process.env.databaseKey)
 });
 /* GET users listing. */
 router.get('/:department?', async function(req, res, next) {
+  console.log(`debug:` + req.cookies.phone_number);
+  if(req.cookies.phone_number === undefined) {
+    console.log("loginしなかったのでredirectさせる");
+    res.redirect('/login');
+  }
   //SELECT name, department, state_left, state_mid, state_right FROM users;
   const getData = await Schema.find({},{name: 1, department: 1, state_left: 1, state_left: 1, state_mid: 1, state_right: 1, updatedAt: 1}).lean();
   //SELECT name FROM users WHERE phone_number = req.cookies.phone_number
   const loginUserData = await Schema.findOne({phone_number: req.cookies.phone_number}, {name: 1, state_left: 1}).lean();
-  const loginUserName = loginUserData.name.slice(0, 1);
+  let loginUserName;
+  if(req.cookies.phone_number != undefined) {
+    loginUserName = loginUserData.name.slice(0, 1);
+  } else {
+    loginUserName = "エラー吐く用";
+  }
 
   //pugに引き渡すためのオブジェクトを作成する
   //MongoDBから取得した値はmodelというデータ構造になっていて編集が出来ません
@@ -76,9 +86,15 @@ router.get('/:department?', async function(req, res, next) {
     pugData = getData;
   }
   console.log(loginUserData);
-  const loginUserState = loginUserData.state_left;
 
-  //全体の安否状況に引き渡す値の作成
+  let loginUserState;
+  //エラー潰し用
+  if(req.cookies.phone_number === undefined) {
+    loginUserState = "エラー吐く用";
+  } else {
+    loginUserState = loginUserData.state_left;
+  }
+   //全体の安否状況に引き渡す値の作成
   //変換:#6eaa00->rgb(110, 170, 0).#d60015->rgb(214, 0, 21)
   let safeUser = 0;
   let dangerUser = 0; 
@@ -115,17 +131,7 @@ router.get('/:department?', async function(req, res, next) {
       pugData[i].timeDiffPug = "1週間以上前";
     }
   }
-  console.log("-----pugData-----");
-
-  console.log(pugData.getName());
-  console.log("pugDara.length:" + pugData.length);
-  console.log(getData.getName());
-  console.log("getdata.length:" + getData.length);
-  console.log(pugData[0]);
-  
-  console.log("-----req.url-----");
   const reqUrl = req.url;
-  console.log(req.url);
   res.render('top', {data: pugData, loginUserName, loginUserState, safeUser, dangerUser, unconfirmedUser, wholeUser, reqUrl});
 });
 

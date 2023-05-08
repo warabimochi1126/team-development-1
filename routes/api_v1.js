@@ -119,7 +119,6 @@ router.get('/redirectTop', function(req, res, next) {
 //②クライアント側でJSONを受け取って指定内容に書き換え
 router.get('/reload', async function(req, res, next) {
   const topData = await Schema.find({}, {state_left: 1, state_mid: 1, department: 1});
-  console.log(topData);
   res.json(topData);
 });
 //投稿処理
