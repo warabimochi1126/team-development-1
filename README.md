@@ -1,1 +1,3 @@
-# teamDevelopment1
+# 災害時連絡掲示板
+
+**team-development-1**はシンプルなデザインで使いやすさを意識した災害時連絡掲示板です
