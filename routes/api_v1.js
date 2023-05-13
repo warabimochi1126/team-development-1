@@ -12,6 +12,7 @@ Object.prototype.getName = function() {
   return (results && results.length > 1) ? results[1] : "";
 };
 
+console.log(process.env.databaseKey);
 //DB接続
 mongoose.connect(process.env.databaseKey)
 .then(() => {
