@@ -21,7 +21,6 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-//静的ファイルのルーティングはpublicディレクトリが親ディレクトリであるという設定
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);

@@ -85,13 +85,10 @@ $(window).resize(function() {
       let unconfirmedUser = 0;
       for(let i = 0; i < reWriteData.length; i++) {
         if(reWriteData[i].state_left === "rgb(110, 170, 0)") {
-          console.log("1banme");
           safeUser++;
         } else if(reWriteData[i].state_left === "rgb(214, 0, 21)") {
-          console.log("2banme");
           dangerUser++;
         } else {
-          console.log("3banme");
           unconfirmedUser++;
         }
       }
@@ -100,12 +97,6 @@ $(window).resize(function() {
       whole.textContent = wholeUser;
       dantxt.textContent = dangerUser;
       unctxt.textContent = unconfirmedUser;
-      console.log(`safeUser:${safeUser}`);
-      console.log(`wholeUser:${wholeUser}`);
-      console.log(`dangerUser:${dangerUser}`);
-      console.log(`unconfrimedUser:${unconfirmedUser}`);
-      console.log(reWriteData);
-      console.log(reWriteData[0].state_left === "rgb(110, 170, 0)");
 
       //中身が入っていない項目を取得しようとするとundefinedが代入されます
       //対処:取得したJSONから背景色がundefinedの場合->灰色のカラーコード.コメントがundefinedの場合->指定された任意の文字列を代入
@@ -135,35 +126,7 @@ $(window).resize(function() {
     } else {
       icon.style.backgroundColor = green;
     }
-
-    //-----frontend-------
-    //変換:#6eaa00->rgb(110, 170, 0).#d60015->rgb(214, 0, 21)
-    // if (count === 1) {
-    //   icon.style.backgroundColor = 'rgb(110, 170, 0)';
-    //   console.log(getBgColor());
-    // } else if (count === 2) {
-    //   icon.style.backgroundColor = 'rgb(214, 0, 21)';
-    //   console.log(getBgColor());
-    // } else if (count === 3) {
-    //   icon.style.backgroundColor = 'rgb(110, 170, 0)';
-    //   console.log(getBgColor());
-    //   count = 1; // カウントをリセット
-    // }
-    //cookieを使ってログインユーザの確認
-    console.log(document.cookie);
     //-----backend-----
-    //色の更新順序:灰->緑->赤->緑->赤
-    //メイン画面のアイコン・クリックするアイコンに対してDBから引っ張ってきたカラーコードを適用する
-    //更新後のカラーコードをDBに保存でいける？
-     //実際にサーバーにreqを送信する
-     //TODO:05/01:19:50
-     //①カラーコードを取得する
-     //②postreqでAPI叩く
-     //③サーバ側でpostでカラーコードをサーバ側cookieを使って保存(state_left代用してカラーコード入れとく)
-     //④top,pugをレスポンスする時にDBに保存されているカラーコードを使ってリスト側のアイコン・クリックするアイコンの背景色を設定
-     //動的にcssの変更が必要,サーバ側の値をクライアントJSにどうやって渡す？
-     //pugの中にif書いて直接style当てて解決
-     
      const currrentBgColor =  window.getComputedStyle(icon, null).getPropertyValue('background-color');
      try {
       await axios.post("/api/v1/update", {
@@ -180,7 +143,6 @@ $(window).resize(function() {
   //TODO:23/05/02
   const submitBtn = document.getElementById('upload');
   submitBtn.addEventListener('click', async () => {
-    console.log("入力内容:" + document.textForm.comments.value);
     try {
       await axios.post("/api/v1/posting", {
         user: document.cookie,    //多分使わない
