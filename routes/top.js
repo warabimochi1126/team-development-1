@@ -26,12 +26,16 @@ router.get('/:department?', async function(req, res, next) {
   const getData = await Schema.find({},{name: 1, department: 1, state_left: 1, state_left: 1, state_mid: 1, state_right: 1, updatedAt: 1}).lean();
   const loginUserData = await Schema.findOne({phone_number: req.cookies.phone_number}, {name: 1, state_left: 1}).lean();
   let loginUserName;
-  if(req.cookies.phone_number != undefined) {
-    loginUserName = loginUserData.name.slice(0, 1);
-  } else {
-    loginUserName = "エラー吐く用";
+  try {
+    if(req.cookies.phone_number != undefined) {
+      loginUserName = loginUserData.name.slice(0, 1);
+    } else {
+      loginUserName = "エラー吐く用";
+    }
+  } catch(err) {
+    console.log("エラー吐いた");
   }
-
+  
   for(let i = 0; i < getData.length; i++) {
     getData[i].names = getData[i].name.split(' ');
     getData[i].iconName = getData[i].names[0].slice(0, 1);
